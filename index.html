@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mis Creaciones Web 🌌</title>
+  <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,500;1,400&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg-color: #08040c;
+      --card-bg: rgba(255, 255, 255, 0.04);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --text-main: #ffffff;
+      --text-muted: #b3a0c2;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      font-family: 'Quicksand', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background: radial-gradient(circle at 50% 0%, #1a0b2e 0%, #08040c 70%);
+    }
+
+    .container {
+      width: min(1200px, 92vw);
+      margin: 0 auto;
+      padding: 60px 0;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 500;
+      background: linear-gradient(135deg, #fff 30%, #ff75a0 100%);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 12px;
+    }
+
+    header p {
+      color: var(--text-muted);
+      font-size: clamp(0.9rem, 3vw, 1.1rem);
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .filters {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 45px;
+    }
+
+    .filter-btn {
+      background: #ff75a0;
+      border: 1px solid #ff75a0;
+      color: var(--text-main);
+      padding: 10px 28px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 18px rgba(255, 117, 160, 0.4);
+    }
+
+    .filter-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 25px rgba(255, 117, 160, 0.6);
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 30px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s, box-shadow 0.3s;
+      position: relative;
+      overflow: hidden;
+      opacity: 0;
+    }
+
+    .project-card::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(circle at var(--x, 50%) var(--y, 50%), rgba(255,117,160,0.15) 0%, transparent 50%);
+      opacity: 0; transition: opacity 0.3s; pointer-events: none;
+    }
+    .project-card:hover::before { opacity: 1; }
+
+    .project-card:hover {
+      transform: translateY(-7px);
+      border-color: rgba(255, 255, 255, 0.25);
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+    }
+
+    .card-header {
+      margin-bottom: 20px;
+    }
+
+    .project-icon {
+      font-size: 2.5rem;
+      display: inline-block;
+      margin-bottom: 10px;
+    }
+
+    .project-title {
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #ffffff;
+    }
+
+    .project-desc {
+      color: var(--text-muted);
+      font-size: 0.92rem;
+      line-height: 1.6;
+      margin-bottom: 30px;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px; 
+    }
+
+    .project-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: #ffffff;
+      background: linear-gradient(90deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.1) 100%);
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 12px 20px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .project-card:hover .project-btn:not(.btn-download) {
+      background: #ffffff;
+      color: #08040c;
+      border-color: #ffffff;
+      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+    }
+
+    .project-btn.btn-download {
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: var(--text-muted);
+    }
+
+    .project-card:hover .project-btn.btn-download {
+      background: rgba(255, 255, 255, 0.06);
+      color: #ffffff;
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .project-card:hover .project-btn.btn-download:hover {
+      background: #ff75a0;
+      color: #ffffff;
+      border-color: #ff75a0;
+      box-shadow: 0 5px 15px rgba(255, 117, 160, 0.4);
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(25px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <h1>Mi Universo Web</h1>
+      <p>Códigos, Diseños y Espacios Interactivos</p>
+    </header>
+
+    <div class="filters">
+      <button class="filter-btn" id="btn-todos">Todos</button>
+    </div>
+
+    <div class="projects-grid" id="grid-container"></div>
+  </div>
+
+  <script>
+    const misProyectos = [
+      {
+        titulo: "Galaxia del Amor",
+        descripcion: "Un espacio tridimensional interactivo con órbitas de palabras flotantes y un corazón latiendo en el centro.",
+        archivoUrl: "GALAXIA.html", 
+        icono: "🌌"
+      },
+      {
+        titulo: "Agujero Negro del Amor",
+        descripcion: "Versión alternativa con físicas de partículas avanzadas, fondo estelar adaptativo y panel interactivo con estilo responsive.",
+        archivoUrl: "agujeronegro.html", 
+        icono: "🕳️"
+      },
+      {
+        titulo: "Luna Mágica",
+        descripcion: "Una experiencia celestial interactiva con una luna resplandeciente, ráfagas de polvo estelar mágico y efectos de iluminación dinámicos que reaccionan al movimiento.",
+        archivoUrl: "luna.html", 
+        icono: "🌘"
+      },
+      {
+        titulo: "Lluvia de Dedicatorias",
+        descripcion: "Una romántica lluvia interactiva donde mensajes afectuosos y stickers digitales caen suavemente por la pantalla, acompañados de sutiles destellos y efectos visuales flotantes.",
+        archivoUrl: "lluviadedicatoria.html",
+        icono: "🌧️"
+      }
+    ];
+
+    const gridContainer = document.getElementById('grid-container');
+    const btnTodos = document.getElementById('btn-todos');
+
+    function renderProjects(proyectos) {
+      gridContainer.innerHTML = "";
+      
+      proyectos.forEach((proy, index) => {
+        const card = document.createElement('div');
+        card.className = 'project-card';
+        
+        card.style.animation = "fadeInUp 0.6s ease forwards";
+        card.style.animationDelay = `${index * 0.12}s`;
+        
+        card.innerHTML = `
+          <div>
+            <div class="card-header">
+              <span class="project-icon">${proy.icono}</span>
+              <h2 class="project-title">${proy.titulo}</h2>
+            </div>
+            <p class="project-desc">${proy.descripcion}</p>
+          </div>
+          <div class="card-footer">
+            <a href="${proy.archivoUrl}" download="${proy.archivoUrl}" class="project-btn btn-download">
+              📥 Descargar
+            </a>
+            <a href="${proy.archivoUrl}" class="project-btn" target="_blank">
+              Ver Proyecto <span>→</span>
+            </a>
+          </div>
+        `;
+        
+        card.addEventListener('mousemove', (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty('--x', `${x}px`);
+          card.style.setProperty('--y', `${y}px`);
+        });
+
+        gridContainer.appendChild(card);
+      });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      renderProjects(misProyectos);
+
+      btnTodos.addEventListener('click', () => {
+        renderProjects(misProyectos);
+      });
+    });
+  </script>
+</body>
+</html>
