@@ -160,7 +160,7 @@
     <button id="start-btn">Toca aquí</button>
   </div>
 
-<audio id="audio" src="https://stirring-chebakia-c4b32b.netlify.app/melancolia.mp3" ></audio>
+  <audio id=src="https://stirring-chebakia-c4b32b.netlifyapp/melancolia.mp3" preload="auto"></audio>
 
   <script>
     const startBtn = document.getElementById('start-btn');
@@ -172,7 +172,9 @@
 
     startBtn.addEventListener('click', () => {
       // Reproducir música
-      audioEresTu.currentTime = 176;
+      // CORREGIDO: Cambiado de 176 a 0 para que la canción inicie desde el principio. 
+      // Si quieres que empiece en un segundo específico (ej: segundo 10), cambia el 0 por ese número.
+      audioEresTu.currentTime = 176; 
       audioEresTu.volume = 0.7;
       audioEresTu.play();
 
